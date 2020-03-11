@@ -1,6 +1,7 @@
-import { Controller, UseGuards, Get, Render, Request, Post } from '@nestjs/common';
+import { Controller, UseGuards, Get, Render, Request, Post, Logger, Body } from '@nestjs/common';
 import { AuthenticatedGuard } from 'src/common/guards/authenticated.guard';
 import { UsersService } from './users.service';
+import { User } from './user.entity';
 
 @Controller('users')
 export class UsersController {
@@ -10,9 +11,10 @@ export class UsersController {
     @UseGuards(AuthenticatedGuard)
     @Post('create')
     @Render('createuser')
-    setUser(@Request() req) {
-        this.usersService.create(req.user);
-        return { user: req.user };
+    setUser(@Request() req, @Body() user: User) {
+        Logger.log('user: ' + JSON.stringify(user));
+        this.usersService.create(user);
+        return user;
     }
 
     @UseGuards(AuthenticatedGuard)

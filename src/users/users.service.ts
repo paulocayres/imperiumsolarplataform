@@ -3,6 +3,9 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
+
+
 
 @Injectable()
 export class UsersService {
@@ -14,34 +17,34 @@ export class UsersService {
 
 
 
-/*     this.users = [
-      {
-        userId: 1,
-        username: 'john',
-        password: 'changeme',
-        pet: { name: 'alfred', picId: 1 },
-      },
-      {
-        userId: 2,
-        username: 'chris',
-        password: 'secret',
-        pet: { name: 'gopher', picId: 2 },
-      },
-      {
-        userId: 3,
-        username: 'maria',
-        password: 'guess',
-        pet: { name: 'jenny', picId: 3 },
-      },
-    ]; */
+    /*     this.users = [
+          {
+            userId: 1,
+            username: 'john',
+            password: 'changeme',
+            pet: { name: 'alfred', picId: 1 },
+          },
+          {
+            userId: 2,
+            username: 'chris',
+            password: 'secret',
+            pet: { name: 'gopher', picId: 2 },
+          },
+          {
+            userId: 3,
+            username: 'maria',
+            password: 'guess',
+            pet: { name: 'jenny', picId: 3 },
+          },
+        ]; */
 
 
 
   }
-/* 
-  async findOne(username: string): Promise<any> {
-    return this.users.find(user => user.username === username);
-  } */
+  /* 
+    async findOne(username: string): Promise<any> {
+      return this.users.find(user => user.username === username);
+    } */
 
 
   findAll(): Promise<User[]> {
@@ -49,7 +52,7 @@ export class UsersService {
   }
 
   findOne(username: string): Promise<User> {
-    return this.usersRepository.findOne({ username: username});;
+    return this.usersRepository.findOne({ username });
   }
 
   async remove(id: string): Promise<void> {
@@ -57,6 +60,10 @@ export class UsersService {
   }
 
   async create(user: User): Promise<void> {
-    await this.usersRepository.create(user);
+    await bcrypt.hash(user.password, 10, (err, hash) => {
+      user.password = hash;
+      Logger.log(hash);
+      this.usersRepository.insert(user);
+    });
   }
 }

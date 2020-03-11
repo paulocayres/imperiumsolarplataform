@@ -18,6 +18,7 @@ import { AuthExceptionFilter } from './common/filters/auth-exceptions.filter';
 @Controller()
 @UseFilters(AuthExceptionFilter)
 export class AppController {
+
   @Get('/')
   @Render('login')
   index(@Request() req): { message: string } {

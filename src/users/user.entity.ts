@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Perfil } from './perfil.entity';
 
 @Entity()
@@ -7,10 +7,10 @@ export class User {
   id: number;
 
   @Column()
-  firstName: string;
+  firstname: string;
 
   @Column()
-  lastName: string;
+  lastname: string;
 
   @Column()
   username: string;
@@ -19,8 +19,9 @@ export class User {
   password: string;
 
   @Column({ default: true })
-  isActive: boolean;
+  isactive: boolean;
 
-  @OneToMany(type => Perfil, perfil => perfil.name)
-  perfis: Perfil[];
+  @OneToOne(type => Perfil)
+  @JoinColumn()
+  perfil: Perfil;
 }
