@@ -31,7 +31,6 @@ export class UsersService {
   async findUser(id: string): Promise<User> {
 
     const user = await this.usersRepository.findOne(id, { relations: ['perfil'] });
-    Logger.log('usuario find: ' + JSON.stringify(user));
 
     if (user.perfil.id === 1) {
       const isadmin = true;
