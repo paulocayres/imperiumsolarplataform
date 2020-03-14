@@ -14,6 +14,7 @@ import { Response } from 'express';
 import { LoginGuard } from './common/guards/login.guard';
 import { AuthenticatedGuard } from './common/guards/authenticated.guard';
 import { AuthExceptionFilter } from './common/filters/auth-exceptions.filter';
+import { ImperiumGuard } from './common/guards/imperium.guard';
 
 @Controller()
 @UseFilters(AuthExceptionFilter)
@@ -31,14 +32,14 @@ export class AppController {
     res.redirect('/home');
   }
 
-  @UseGuards(AuthenticatedGuard)
+  @UseGuards()
   @Get('/home')
   @Render('home')
   getHome(@Request() req) {
     return { user: req.user };
   }
 
-  @UseGuards(AuthenticatedGuard)
+  @UseGuards(ImperiumGuard)
   @Get('/profile')
   @Render('profile')
   getProfile(@Request() req) {

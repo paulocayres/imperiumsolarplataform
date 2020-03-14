@@ -1,5 +1,5 @@
 // src/auth/auth.service.ts
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 
@@ -11,25 +11,13 @@ export class AuthService {
 
     const user = await this.usersService.findOne(username);
 
-    const resultFinal  = await bcrypt.compare(pass, user.password, (err, succes) => {
-      if (user && succes) {
-        const { password, ...result } = user;
-        return result;
-      }
+    const match = await bcrypt.compare(pass, user.password);
+
+    if (user && match) {
+      const { password, ...result } = user;
+      return result;
+    } else{
       return null;
-    });
-
-    Logger.log('result: ' + JSON.stringify(resultFinal));
-    return resultFinal;
-    /*     Logger.log('user: ' + username + ' : ' + pass);
-        Logger.log('user: ' + username + ' : ' + user.password);
-        Logger.log('user: ' + JSON.stringify(user));
-        if (user && user.password === pass) {
-           const { password, ...result } = user;
-           Logger.log('result: ' + JSON.stringify(result));
-           return result;
-         }
-         return null; */
-
+    }
   }
 }
