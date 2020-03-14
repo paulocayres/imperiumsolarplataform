@@ -7,19 +7,19 @@
             </div>
             <div class="mdl-card__supporting-text">
                 <form action="/users/create" method="post">
-                    <div class="mdl-textfield mdl-js-textfield">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" name="firstname" id="firstname" value="{{user.firstname}}"/>
                         <label class="mdl-textfield__label" for="firstname">Nome</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" name="lastname" id="lastname" value="{{user.lastname}}"/>
                         <label class="mdl-textfield__label" for="lastname">Sobre Nome</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" name="username" id="username" value="{{user.username}}"/>
                         <label class="mdl-textfield__label" for="username">Usuário</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" name="perfilname" id="perfilname" value="{{user.perfil.name}}"/>
                         <label class="mdl-textfield__label" for="perfilname">Perfil</label>
                     </div>

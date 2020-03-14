@@ -7,19 +7,19 @@
             </div>
             <div class="mdl-card__supporting-text">
                 <form action="/users/create" method="post">
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" name="firstname" id="firstname"/>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="firstname" id="firstname" />
                         <label class="mdl-textfield__label" for="firstname">Nome</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" name="lastname" id="lastname"/>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="lastname" id="lastname" />
                         <label class="mdl-textfield__label" for="lastname">Sobre Nome</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" name="username" id="username" />
                         <label class="mdl-textfield__label" for="username">Usuário</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="password" name="password" id="password" />
                         <label class="mdl-textfield__label" for="password">Password</label>
                     </div>
@@ -27,12 +27,28 @@
 
 
                     <br>
-                    <select class="custom-select" id="perfilId" name="perfilId">
+                    {{!--                     <select class="custom-select" id="perfilId" name="perfilId">
                         <option selected>Selecione o Perfil</option>
-                        <option value= 1>Admin</option>
-                        <option value= 2>Imperium</option>
-                        <option value= 3>Usuário</option>
-                    </select>
+                        <option value=1>Admin</option>
+                        <option value=2>Imperium</option>
+                        <option value=3>Usuário</option>
+                    </select> --}}
+
+
+                    <h5>Perfil</h5>
+                    <br>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                        <input type="radio" id="option-1" class="mdl-radio__button" name="perfilId" value="1">
+                        <span class="mdl-radio__label">Admin</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                        <input type="radio" id="option-2" class="mdl-radio__button" name="perfilId" value="2">
+                        <span class="mdl-radio__label">Imperium</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+                        <input type="radio" id="option-3" class="mdl-radio__button" name="perfilId" value="3">
+                        <span class="mdl-radio__label">Usuário</span>
+                    </label>
 
                     <div class="mdl-card__actions mdl-card--border">
                         <button
