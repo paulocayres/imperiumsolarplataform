@@ -12,7 +12,7 @@ export class ImperiumGuard implements CanActivate {
     const request = await context.switchToHttp().getRequest();
     const authenticated = await request.isAuthenticated();
     const user: User = await this.usersService.findPerfil(request.user.username);
-    if (authenticated && (user.perfil.name === 'imperium' || user.perfil.name === 'imperium')) {
+    if (user && authenticated && (user.perfil.name === 'imperium' || user.perfil.name === 'admin')) {
       return true;
     } else {
       return false;

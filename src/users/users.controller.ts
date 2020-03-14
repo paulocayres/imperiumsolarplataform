@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Render, Request, Post, Body } from '@nestjs/common';
+import { Controller, UseGuards, Get, Render, Request, Post, Body, Logger, Param } from '@nestjs/common';
 import { AuthenticatedGuard } from 'src/common/guards/authenticated.guard';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
@@ -10,12 +10,23 @@ export class UsersController {
 
     constructor(private usersService: UsersService) { }
 
-    @UseGuards(AdminGuard)
-    @Post('create')
-    @Render('createuser')
-    setUser(@Request() req, @Body() user: User) {
-        this.usersService.create(user);
-        return user;
+
+
+    @UseGuards(ImperiumGuard)
+    @Get('users')
+    @Render('getusers')
+    async getUsers(@Request() req) {
+         const users = await this.usersService.findAll();
+         Logger.log('users controller: ' + JSON.stringify(users));
+         return { usersArray: users }
+    }
+
+    @UseGuards(ImperiumGuard)
+    @Get('user/:id')
+    @Render('getuser')
+    async getUser(@Param() params) {
+        const userobj = await this.usersService.findUser(params.id);
+        return { user: userobj };
     }
 
     @UseGuards(AdminGuard)
@@ -25,20 +36,18 @@ export class UsersController {
         return ;
     }
 
+    @UseGuards(AdminGuard)
+    @Post('create')
+    @Render('createuser')
+    setUser(@Request() req, @Body() user: User) {
+        this.usersService.create(user);
+        return user;
+    }
 
     @UseGuards(AdminGuard)
-    @Post('delete')
-    @Render('deluser')
+    @Post('bloq')
+    @Render('bloquser')
     deleteUser(@Request() req) {
         return { user: req.user };
     }
-
-    @UseGuards(ImperiumGuard)
-    @Get('get')
-    @Render('getuser')
-    getUser(@Request() req) {
-        return { user: req.user };
-    }
-
-
 }

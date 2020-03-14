@@ -1,5 +1,5 @@
 // src/users/users.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -17,45 +17,19 @@ export class UsersService {
     private readonly usersRepository: Repository<User>,
     @InjectRepository(Perfil)
     private readonly perfisRepository: Repository<User>) {
-
-
-
-    /*     this.users = [
-          {
-            userId: 1,
-            username: 'john',
-            password: 'changeme',
-            pet: { name: 'alfred', picId: 1 },
-          },
-          {
-            userId: 2,
-            username: 'chris',
-            password: 'secret',
-            pet: { name: 'gopher', picId: 2 },
-          },
-          {
-            userId: 3,
-            username: 'maria',
-            password: 'guess',
-            pet: { name: 'jenny', picId: 3 },
-          },
-        ]; */
-
-
-
   }
-  /* 
-    async findOne(username: string): Promise<any> {
-      return this.users.find(user => user.username === username);
-    } */
 
-
-  findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+  async findAll(): Promise<User[]> {
+    const users = await this.usersRepository.find({ relations: ['perfil'] });
+    return users;
   }
 
   findOne(username: string): Promise<User> {
-    return this.usersRepository.findOne({ username });
+    return this.usersRepository.findOne({ username }, { relations: ['perfil'] });
+  }
+
+  findUser(id: string): Promise<User> {
+    return this.usersRepository.findOne(id, { relations: ['perfil'] });
   }
 
   findPerfil(username: string): Promise<User> {
