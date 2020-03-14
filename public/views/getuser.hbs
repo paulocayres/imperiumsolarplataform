@@ -8,21 +8,45 @@
             <div class="mdl-card__supporting-text">
                 <form action="/users/create" method="post">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" name="firstname" id="firstname" value="{{user.firstname}}"/>
+                        <input class="mdl-textfield__input" type="text" name="firstname" id="firstname"
+                            value="{{user.firstname}}" />
                         <label class="mdl-textfield__label" for="firstname">Nome</label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" name="lastname" id="lastname" value="{{user.lastname}}"/>
+                        <input class="mdl-textfield__input" type="text" name="lastname" id="lastname"
+                            value="{{user.lastname}}" />
                         <label class="mdl-textfield__label" for="lastname">Sobre Nome</label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" name="username" id="username" value="{{user.username}}"/>
+                        <input class="mdl-textfield__input" type="text" name="username" id="username"
+                            value="{{user.username}}" />
                         <label class="mdl-textfield__label" for="username">Usuário</label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" name="perfilname" id="perfilname" value="{{user.perfil.name}}"/>
+                        <input class="mdl-textfield__input" type="text" name="perfilname" id="perfilname"
+                            value="{{user.perfil.name}}" />
                         <label class="mdl-textfield__label" for="perfilname">Perfil</label>
                     </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="isactive" id="isactive"
+                            value="{{user.isactive}}" />
+                        <label class="mdl-textfield__label" for="perfilname">Ativo</label>
+                    </div>
+
+                    <h5>Perfil</h5>
+                    <br>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                        <input type="radio" id="option-1" class="mdl-radio__button" name="perfilId" value="1" {{#if user.isadmin}}checked{{/if}}>
+                        <span class="mdl-radio__label">Admin</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                        <input type="radio" id="option-2" class="mdl-radio__button" name="perfilId" value="2" {{#if user.isimperium}}checked{{/if}}>
+                        <span class="mdl-radio__label">Imperium</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+                        <input type="radio" id="option-3" class="mdl-radio__button" name="perfilId" value="3" {{#if user.isusuario}}checked{{/if}}>
+                        <span class="mdl-radio__label">Usuário</span>
+                    </label>
                     <br>
 
 

@@ -17,7 +17,7 @@ export class UsersController {
     @Render('getusers')
     async getUsers(@Request() req) {
          const users = await this.usersService.findAll();
-         Logger.log('users controller: ' + JSON.stringify(users));
+         // Logger.log('users controller: ' + JSON.stringify(users));
          return { usersArray: users }
     }
 

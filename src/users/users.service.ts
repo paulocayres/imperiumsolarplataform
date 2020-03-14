@@ -28,8 +28,25 @@ export class UsersService {
     return this.usersRepository.findOne({ username }, { relations: ['perfil'] });
   }
 
-  findUser(id: string): Promise<User> {
-    return this.usersRepository.findOne(id, { relations: ['perfil'] });
+  async findUser(id: string): Promise<User> {
+
+    const user = await this.usersRepository.findOne(id, { relations: ['perfil'] });
+    Logger.log('usuario find: ' + JSON.stringify(user));
+
+    if (user.perfil.id === 1) {
+      const isadmin = true;
+      const property = 'isadmin';
+      user[property] = isadmin;
+    } else if (user.perfil.id === 2) {
+      const isimperium = true;
+      const property = 'isimperium';
+      user[property] = isimperium;
+    } else if (user.perfil.id === 3) {
+      const isusuario = true;
+      const property = 'isusuario';
+      user[property] = isusuario;
+    }
+    return user;
   }
 
   findPerfil(username: string): Promise<User> {
