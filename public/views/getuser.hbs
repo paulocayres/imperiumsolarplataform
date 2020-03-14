@@ -27,24 +27,34 @@
                             value="{{user.perfil.name}}" />
                         <label class="mdl-textfield__label" for="perfilname">Perfil</label>
                     </div>
+
+                    {{#if user.isactive}}
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" name="isactive" id="isactive"
-                            value="{{user.isactive}}" />
+                        <input class="mdl-textfield__input" type="text" name="isactive" id="isactive" value="Ativo" />
                         <label class="mdl-textfield__label" for="perfilname">Ativo</label>
                     </div>
+                    {{else}}
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="isactive" id="isactive" value="Inativo" />
+                        <label class="mdl-textfield__label" for="perfilname">Inativo</label>
+                    </div>
+                    {{/if}}
 
                     <h5>Perfil</h5>
                     <br>
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                        <input type="radio" id="option-1" class="mdl-radio__button" name="perfilId" value="1" {{#if user.isadmin}}checked{{/if}}>
+                        <input type="radio" id="option-1" class="mdl-radio__button" name="perfilId" value="1"
+                            {{#if user.isadmin}}checked{{/if}}>
                         <span class="mdl-radio__label">Admin</span>
                     </label>
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                        <input type="radio" id="option-2" class="mdl-radio__button" name="perfilId" value="2" {{#if user.isimperium}}checked{{/if}}>
+                        <input type="radio" id="option-2" class="mdl-radio__button" name="perfilId" value="2"
+                            {{#if user.isimperium}}checked{{/if}}>
                         <span class="mdl-radio__label">Imperium</span>
                     </label>
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                        <input type="radio" id="option-3" class="mdl-radio__button" name="perfilId" value="3" {{#if user.isusuario}}checked{{/if}}>
+                        <input type="radio" id="option-3" class="mdl-radio__button" name="perfilId" value="3"
+                            {{#if user.isusuario}}checked{{/if}}>
                         <span class="mdl-radio__label">Usuário</span>
                     </label>
                     <br>

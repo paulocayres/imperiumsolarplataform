@@ -24,7 +24,13 @@
                         <td>{{ firstname }}</td>
                         <td>{{ lastname }}</td>
                         <td>{{ username }}</td>
-                        <td>{{ isactive }}</td>
+
+
+                        {{#if isactive}}
+                        <td>Ativo</td>
+                        {{else}}
+                        <td>Inativo</td>
+                        {{/if}}
                         <td>{{ perfil.name }}</td>
                     </tr>
                     {{/each}}
