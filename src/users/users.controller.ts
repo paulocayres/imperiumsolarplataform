@@ -16,7 +16,6 @@ export class UsersController {
     @Render('getusers')
     async getUsers() {
          const users = await this.usersService.findAll();
-         // Logger.log('users controller: ' + JSON.stringify(users));
          return { usersArray: users }
     }
 
@@ -37,17 +36,17 @@ export class UsersController {
 
     @UseGuards(AdminGuard)
     @Post('create')
-    @Render('createuser')
-    setUser(@Body() user: User) {
-        this.usersService.create(user);
-        return user;
+    @Render('getuser')
+    setUser(@Body() userBody: User) {
+        const usercreated = this.usersService.create(userBody);
+        return { user: usercreated };
     }
 
     @UseGuards(AdminGuard)
     @Post('update')
     @Render('getuser')
-    bloqUser(@Body() user: User) {
-        this.usersService.updateUser(user);
-        return user;
+    async bloqUser(@Body() userBody: User) {
+        const userupdated = await this.usersService.updateUser(userBody);
+        return { user: userupdated };
     }
 }

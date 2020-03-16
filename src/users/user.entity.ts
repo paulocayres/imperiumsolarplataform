@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { Perfil } from './perfil.entity';
 
 @Entity()
@@ -21,11 +21,6 @@ export class User {
   @Column({ default: true })
   isactive: boolean;
 
-  @OneToOne(type => Perfil,
-    {
-      eager: true,
-      cascade: ['insert', 'update']
-    })
-  @JoinColumn()
+  @ManyToOne(type => Perfil, perfil => perfil.users)
   perfil: Perfil;
 }

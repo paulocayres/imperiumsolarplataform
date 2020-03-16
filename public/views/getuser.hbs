@@ -24,38 +24,34 @@
                             value="{{user.username}}" />
                         <label class="mdl-textfield__label" for="username">Usuário</label>
                     </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" name="perfilname" id="perfilname"
-                            value="{{user.perfil.name}}" />
-                        <label class="mdl-textfield__label" for="perfilname">Perfil</label>
-                    </div>
 
-                    {{#if user.isactive}}
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" name="isactive" id="isactive" value="Ativo" />
-                        <label class="mdl-textfield__label" for="perfilname">Ativo</label>
-                    </div>
-                    {{else}}
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" name="isactive" id="isactive" value="Inativo" />
-                        <label class="mdl-textfield__label" for="perfilname">Inativo</label>
-                    </div>
-                    {{/if}}
+                    <h5>Usuário Ativo:</h5>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="active-1">
+                        <input type="radio" id="active-1" class="mdl-radio__button" name="isactive" value="1"
+                            {{#if user.isactive}}checked{{/if}}>
+                        <span class="mdl-radio__label">Ativo</span>
+                    </label>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="active-2">
+                        <input type="radio" id="active-2" class="mdl-radio__button" name="isactive" value="0"
+                            {{#unless user.isactive}}checked{{/unless}}>
+                        <span class="mdl-radio__label">Inativo</span>
+                    </label>
+
+                    <br>
 
                     <h5>Perfil</h5>
-                    <br>
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                        <input type="radio" id="option-1" class="mdl-radio__button" name="perfilId" value="1"
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="perfil-1">
+                        <input type="radio" id="perfil-1" class="mdl-radio__button" name="perfilId" value="1"
                             {{#if user.isadmin}}checked{{/if}}>
                         <span class="mdl-radio__label">Admin</span>
                     </label>
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                        <input type="radio" id="option-2" class="mdl-radio__button" name="perfilId" value="2"
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="perfil-2">
+                        <input type="radio" id="perfil-2" class="mdl-radio__button" name="perfilId" value="2"
                             {{#if user.isimperium}}checked{{/if}}>
                         <span class="mdl-radio__label">Imperium</span>
                     </label>
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                        <input type="radio" id="option-3" class="mdl-radio__button" name="perfilId" value="3"
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="perfil-3">
+                        <input type="radio" id="perfil-3" class="mdl-radio__button" name="perfilId" value="3"
                             {{#if user.isusuario}}checked{{/if}}>
                         <span class="mdl-radio__label">Usuário</span>
                     </label>
@@ -64,7 +60,7 @@
 
                     <div class="mdl-card__actions mdl-card--border">
                         <button
-                            class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Bloquear</button>
+                            class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Alterar</button>
                         <span class="mdl-textfield__error">{{ message }}</span>
                     </div>
                 </form>

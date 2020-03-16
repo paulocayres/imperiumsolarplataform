@@ -5,19 +5,18 @@ import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Perfil } from './perfil.entity';
-import {getConnection} from 'typeorm';
 
 
 
 @Injectable()
 export class UsersService {
-  private readonly users: any[];
 
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     @InjectRepository(Perfil)
-    private readonly perfisRepository: Repository<User>) {
+    private readonly perfisRepository: Repository<User>
+    ) {
   }
 
   async findAll(): Promise<User[]> {
@@ -57,32 +56,44 @@ export class UsersService {
     await this.usersRepository.delete(id);
   }
 
-  async create(user): Promise<void> {
+  async create(user): Promise<User> {
     await bcrypt.hash(user.password, 10, async (err, hash) => {
       user.password = hash;
       const perfil = await this.perfisRepository.findOne(user.perfilId);
       user.perfil = perfil;
+      user.isactive = true;
       this.usersRepository.insert(user);
     });
+
+    const usercreated = await this.usersRepository.findOne(user.username, { relations: ['perfil'] })
+    if (usercreated.perfil.id === 1) {
+      const isadmin = true;
+      const property = 'isadmin';
+      usercreated[property] = isadmin;
+    } else if (usercreated.perfil.id === 2) {
+      const isimperium = true;
+      const property = 'isimperium';
+      usercreated[property] = isimperium;
+    } else if (usercreated.perfil.id === 3) {
+      const isusuario = true;
+      const property = 'isusuario';
+      usercreated[property] = isusuario;
+    }
+    Logger.log('user: ' + JSON.stringify(user));
+    return usercreated;
   }
 
-  async updateUser(user): Promise<void> {
+  async updateUser(user): Promise<User> {
     const perfil = await this.perfisRepository.findOne(user.perfilId);
     user.perfil = perfil;
+    if (user.isactive === '1') {
+      user.isactive = true;
+      Logger.log('isactive: true');
+    } else {
+      user.isactive = false;
+      Logger.log('isactive: false');
+    }
     Logger.log('user: ' + JSON.stringify(user));
-/*     await getConnection()
-    .createQueryBuilder()
-    .update(User)
-    .set({
-      firstname: user.firstname,
-      lastname: user.lastname,
-      username: user.username,
-      isactive: user.isactive,
-      perfil: user.perfil
-      })
-    .where('id = :id', { id: user.id })
-    .execute(); */
-
     await this.usersRepository.update(user.id,
       {
       firstname: user.firstname,
@@ -92,7 +103,22 @@ export class UsersService {
       perfil: user.perfil
       }
     );
-
-    await this.usersRepository.save(user);
+    const userupdated = await this.usersRepository.findOne(user.id, { relations: ['perfil'] })
+    if (userupdated.perfil.id === 1) {
+      const isadmin = true;
+      const property = 'isadmin';
+      userupdated[property] = isadmin;
+    } else if (userupdated.perfil.id === 2) {
+      const isimperium = true;
+      const property = 'isimperium';
+      userupdated[property] = isimperium;
+    } else if (userupdated.perfil.id === 3) {
+      const isusuario = true;
+      const property = 'isusuario';
+      userupdated[property] = isusuario;
+    }
+    Logger.log('user: ' + JSON.stringify(userupdated));
+    return userupdated;
   }
 }
+
