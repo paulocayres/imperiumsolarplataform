@@ -6,7 +6,9 @@
                 <h2 class="mdl-card__title-text">Cadastro de Usuários</h2>
             </div>
             <div class="mdl-card__supporting-text">
-                <form action="/users/create" method="post">
+                <form action="/users/update" method="post">
+                    <input class="mdl-textfield__input" type="hidden" name="id" id="id"
+                        value="{{user.id}}" />
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" name="firstname" id="firstname"
                             value="{{user.firstname}}" />

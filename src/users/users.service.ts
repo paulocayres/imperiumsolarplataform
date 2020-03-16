@@ -5,6 +5,7 @@ import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Perfil } from './perfil.entity';
+import {getConnection} from 'typeorm';
 
 
 
@@ -63,5 +64,35 @@ export class UsersService {
       user.perfil = perfil;
       this.usersRepository.insert(user);
     });
+  }
+
+  async updateUser(user): Promise<void> {
+    const perfil = await this.perfisRepository.findOne(user.perfilId);
+    user.perfil = perfil;
+    Logger.log('user: ' + JSON.stringify(user));
+/*     await getConnection()
+    .createQueryBuilder()
+    .update(User)
+    .set({
+      firstname: user.firstname,
+      lastname: user.lastname,
+      username: user.username,
+      isactive: user.isactive,
+      perfil: user.perfil
+      })
+    .where('id = :id', { id: user.id })
+    .execute(); */
+
+    await this.usersRepository.update(user.id,
+      {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      username: user.username,
+      isactive: user.isactive,
+      perfil: user.perfil
+      }
+    );
+
+    await this.usersRepository.save(user);
   }
 }

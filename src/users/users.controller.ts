@@ -1,9 +1,8 @@
-import { Controller, UseGuards, Get, Render, Request, Post, Body, Logger, Param } from '@nestjs/common';
-import { AuthenticatedGuard } from 'src/common/guards/authenticated.guard';
-import { UsersService } from './users.service';
-import { User } from './user.entity';
+import { Body, Controller, Get, Param, Post, Render, Request, UseGuards } from '@nestjs/common';
 import { AdminGuard } from 'src/common/guards/admin.guard';
 import { ImperiumGuard } from 'src/common/guards/imperium.guard';
+import { User } from './user.entity';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
@@ -15,7 +14,7 @@ export class UsersController {
     @UseGuards(ImperiumGuard)
     @Get('users')
     @Render('getusers')
-    async getUsers(@Request() req) {
+    async getUsers() {
          const users = await this.usersService.findAll();
          // Logger.log('users controller: ' + JSON.stringify(users));
          return { usersArray: users }
@@ -32,22 +31,23 @@ export class UsersController {
     @UseGuards(AdminGuard)
     @Get('create')
     @Render('createuser')
-    getCadastro(@Request() req) {
+    getCadastro() {
         return ;
     }
 
     @UseGuards(AdminGuard)
     @Post('create')
     @Render('createuser')
-    setUser(@Request() req, @Body() user: User) {
+    setUser(@Body() user: User) {
         this.usersService.create(user);
         return user;
     }
 
     @UseGuards(AdminGuard)
-    @Post('bloq')
-    @Render('bloquser')
-    deleteUser(@Request() req) {
-        return { user: req.user };
+    @Post('update')
+    @Render('getuser')
+    bloqUser(@Body() user: User) {
+        this.usersService.updateUser(user);
+        return user;
     }
 }

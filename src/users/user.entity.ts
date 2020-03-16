@@ -21,7 +21,11 @@ export class User {
   @Column({ default: true })
   isactive: boolean;
 
-  @OneToOne(type => Perfil)
+  @OneToOne(type => Perfil,
+    {
+      eager: true,
+      cascade: ['insert', 'update']
+    })
   @JoinColumn()
   perfil: Perfil;
 }
