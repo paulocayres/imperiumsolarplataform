@@ -6,6 +6,8 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { Perfil } from './users/perfil.entity';
+import { ClienteModule } from './cliente/cliente.module';
+import { Cliente } from './cliente/cliente.entity';
 
 @Module({
   imports: [
@@ -16,12 +18,13 @@ import { Perfil } from './users/perfil.entity';
       username: 'root',
       password: 'pccr0976',
       database: 'imperium',
-      entities: [User, Perfil],
+      entities: [User, Perfil, Cliente],
       synchronize: true,
       autoLoadEntities: true,
     }),
     AuthModule,
-    UsersModule
+    UsersModule,
+    ClienteModule
   ],
   controllers: [AppController],
   providers: [AppService],
