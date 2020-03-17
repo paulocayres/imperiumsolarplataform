@@ -24,10 +24,10 @@ export class AuthExceptionFilter implements ExceptionFilter {
       exception instanceof UnauthorizedException ||
       exception instanceof ForbiddenException
     ) {
-      request.flash('loginError', 'Please try again!');
-      response.redirect('/');
+      request.flash('loginError', 'Usuário não autorizado.');
+      response.redirect('/erro');
     } else {
-      response.redirect('/error');
+      response.redirect('/erro');
     }
   }
 }

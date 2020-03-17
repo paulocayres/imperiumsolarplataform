@@ -1,5 +1,5 @@
 // src/common/guards/authenticated.guard.ts
-import { ExecutionContext, Injectable, CanActivate } from '@nestjs/common';
+import { ExecutionContext, Injectable, CanActivate, ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 // import { PassportSerializer } from '@nestjs/passport';
 import { User } from 'src/users/user.entity';
@@ -16,10 +16,10 @@ export class ImperiumGuard implements CanActivate {
       if (user && authenticated && (user.perfil.name === 'imperium' || user.perfil.name === 'admin')) {
         return true;
       } else {
-        return false;
+        throw new ForbiddenException();
       }
     } else {
-      return false;
+      throw new UnauthorizedException();
     }
 
 

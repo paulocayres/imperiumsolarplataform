@@ -1,15 +1,15 @@
-import { Body, Controller, Get, Param, Post, Render, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Request, UseGuards, UseFilters } from '@nestjs/common';
 import { AdminGuard } from 'src/common/guards/admin.guard';
 import { ImperiumGuard } from 'src/common/guards/imperium.guard';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
+import { AuthExceptionFilter } from 'src/common/filters/auth-exceptions.filter';
 
 @Controller('users')
+@UseFilters(AuthExceptionFilter)
 export class UsersController {
 
     constructor(private usersService: UsersService) { }
-
-
 
     @UseGuards(ImperiumGuard)
     @Get('users')

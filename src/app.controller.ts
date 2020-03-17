@@ -32,18 +32,16 @@ export class AppController {
     res.redirect('/home');
   }
 
-  @UseGuards()
+  @Get('/erro')
+  @Render('erro')
+  getErro(@Request() req) : { message: string } {
+      return { message: req.flash('loginError') };
+  }
+
   @Get('/home')
   @Render('home')
   getHome(@Request() req) {
-    return { user: req.user };
-  }
-
-  @UseGuards(ImperiumGuard)
-  @Get('/profile')
-  @Render('profile')
-  getProfile(@Request() req) {
-    return { user: req.user };
+      return { user: req.user};
   }
 
   @Get('/logout')
