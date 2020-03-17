@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
     const authenticated = await request.isAuthenticated();
     if (request.user.username){
       const user: User = await this.usersService.findPerfil(request.user.username);
-      if (user && authenticated && user.perfil.name === 'admin') {
+      if (user.isactive && user && authenticated && user.perfil.name === 'admin') {
         return true;
       } else {
         throw new ForbiddenException();

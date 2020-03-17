@@ -1,5 +1,5 @@
 // src/users/users.service.ts
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, ExecutionContext } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,13 +9,13 @@ import { Perfil } from './perfil.entity';
 
 
 @Injectable()
-export class UsersService {
+export class UsersService{
 
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     @InjectRepository(Perfil)
-    private readonly perfisRepository: Repository<User>
+    private readonly perfisRepository: Repository<User>,
     ) {
   }
 
@@ -46,6 +46,27 @@ export class UsersService {
       user[property] = isusuario;
     }
     return user;
+  }
+
+  async findSelf(user: User): Promise<User> {
+
+    Logger.log('user: ' + JSON.stringify(user));
+    const userobj = await this.usersRepository.findOne(user.id, { relations: ['perfil'] });
+
+    if (userobj.perfil.id === 1) {
+      const isadmin = true;
+      const property = 'isadmin';
+      userobj[property] = isadmin;
+    } else if (userobj.perfil.id === 2) {
+      const isimperium = true;
+      const property = 'isimperium';
+      userobj[property] = isimperium;
+    } else if (userobj.perfil.id === 3) {
+      const isusuario = true;
+      const property = 'isusuario';
+      userobj[property] = isusuario;
+    }
+    return userobj;
   }
 
   findPerfil(username: string): Promise<User> {
@@ -120,5 +141,6 @@ export class UsersService {
     Logger.log('user: ' + JSON.stringify(userupdated));
     return userupdated;
   }
+
 }
 

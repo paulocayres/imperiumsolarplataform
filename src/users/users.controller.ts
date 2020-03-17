@@ -4,6 +4,7 @@ import { ImperiumGuard } from 'src/common/guards/imperium.guard';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
 import { AuthExceptionFilter } from 'src/common/filters/auth-exceptions.filter';
+import { UsuarioGuard } from 'src/common/guards/usuario.guard';
 
 @Controller('users')
 @UseFilters(AuthExceptionFilter)
@@ -27,6 +28,14 @@ export class UsersController {
         return { user: userobj };
     }
 
+    @UseGuards(UsuarioGuard)
+    @Get('user')
+    @Render('getuser')
+    async getSelf(@Request() req) {
+        const userobj = await this.usersService.findSelf(req.user);
+        return { user: userobj };
+    }
+
     @UseGuards(AdminGuard)
     @Get('create')
     @Render('createuser')
@@ -45,7 +54,7 @@ export class UsersController {
     @UseGuards(AdminGuard)
     @Post('update')
     @Render('getuser')
-    async bloqUser(@Body() userBody: User) {
+    async updateUser(@Body() userBody: User) {
         const userupdated = await this.usersService.updateUser(userBody);
         return { user: userupdated };
     }

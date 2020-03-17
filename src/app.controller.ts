@@ -12,9 +12,8 @@ import {
 import { Response } from 'express';
 
 import { LoginGuard } from './common/guards/login.guard';
-import { AuthenticatedGuard } from './common/guards/authenticated.guard';
 import { AuthExceptionFilter } from './common/filters/auth-exceptions.filter';
-import { ImperiumGuard } from './common/guards/imperium.guard';
+import { UsuarioGuard } from './common/guards/usuario.guard';
 
 @Controller()
 @UseFilters(AuthExceptionFilter)
@@ -38,6 +37,7 @@ export class AppController {
       return { message: req.flash('loginError') };
   }
 
+  @UseGuards(UsuarioGuard)
   @Get('/home')
   @Render('home')
   getHome(@Request() req) {
